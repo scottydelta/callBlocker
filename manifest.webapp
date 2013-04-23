@@ -1,0 +1,19 @@
+{
+  "version": "0.0.01",
+  "name": "Call Blocker",
+  "launch_path": "/index.html",
+  "description": "Block calls easily",
+  "icons": {
+    "16": "/applogos/logo16.png",
+    "32": "/applogos/logo32.png",
+    "48": "/applogos/logo48.png",
+    "64": "/applogos/logo64.png",
+    "128": "/applogos/logo128.png"
+  },
+  "developer": {
+    "name": "Vikash Bajaj",
+    "url": "http://delta.nitt.edu"
+  },
+  "installs_allowed_from": ["*"],
+  "default_locale": "en"
+}

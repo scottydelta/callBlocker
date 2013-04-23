@@ -1,0 +1,82 @@
+<html>
+<head>
+ 
+<script>
+var telephone = navigator.mozTelephony;
+telephony.onincoming = function onincoming(event){
+	var incomingCall = event.call;
+	if(localStorage(incomingCall.number)!==null)
+		incomingCall.hangUp();
+		};
+//localStorage.clear();
+function blockNumber(){
+		anumber = document.getElementById("anumber").value;
+		if (anumber !== "" && localStorage.getItem(anumber)==null){
+			localStorage.setItem(anumber, "blocked");
+			alert(anumber + " added to Block List");
+			}
+		else if(anumber==="")
+			var man;
+		else
+			alert(anumber + " already in Block List");
+        };
+
+function unblockNumber(){
+		anumber = document.getElementById("anumber").value;
+		if (localStorage.getItem(anumber)===null && anumber!==""){
+			var r=confirm(anumber + " not in Block List, To block it, Press OK");
+			if (r==true){
+				localStorage.setItem(anumber, "blocked");
+			}
+			}
+		else if(anumber==="")
+			var man;
+		else{
+			localStorage.removeItem(anumber);
+			alert(anumber + " removed from Block List");	
+			}
+		};
+
+function printNumber(){
+		var listLength = localStorage.length;
+		var pb = document.getElementById("pageBody");
+		pb.innerHTML="";
+		var templist="";
+		for (var i=0; i<listLength; i++){
+			var rnumber = localStorage.key(i)
+			console.log(rnumber);
+			templist+=localStorage.key(i) + '<button onclick="removeNumber(' + rnumber + ')">Remove</button>'+ "<br>";
+			}
+		if(templist==="")
+				templist="No Number to be Blocked";
+			pb.innerHTML=templist+'<br><button onclick="mainPage()">Back</button>';
+		};	
+function removeNumber(rnumber){
+		localStorage.removeItem(rnumber);
+		var pb = document.getElementById("pageBody");
+		var listLength = localStorage.length;
+		pb.innerHTML="";
+		var templist="";
+		for (var i=0; i<listLength; i++){
+			var rnumber = localStorage.key(i)
+			templist+=localStorage.key(i) + '<button onclick="removeNumber(' + rnumber + ')">Remove</button>'+ "<br>";
+			}
+		if(templist==="")
+				templist="No Number to be Blocked";
+			pb.innerHTML=templist+'<br><button onclick="mainPage()">Back</button>';
+		};
+			
+function mainPage(){
+			document.getElementById("pageBody").innerHTML = 'Mobile Number: <input type="text" id= "anumber"><button onclick="blockNumber()">Block</button><button onclick="unblockNumber()">Unblock</button><button onclick="printNumber()">Print</button>';
+			};
+</script>
+</head>
+<body>
+<div id="pageBody" style="" >
+Mobile Number: <input type="text" id= "anumber">
+<button onclick="blockNumber()">Block</button>
+<button onclick="unblockNumber()">Unblock</button>
+<button onclick="printNumber()">Print</button>
+</div>
+</body>
+</html>
