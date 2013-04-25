@@ -1,6 +1,9 @@
 <html>
 <head>
- 
+ <link rel="stylesheet" type="text/css" href="css/input_areas.css">
+  <link rel="stylesheet" type="text/css" href="css/headers.css">
+  <link rel="stylesheet" type="text/css" href="css/buttons.css">
+  <link rel="stylesheet" type="text/css" href="css/lists.css">
 <script>
 var telephone = navigator.mozTelephony;
 telephony.onincoming = function onincoming(event){
@@ -45,11 +48,11 @@ function printNumber(){
 		for (var i=0; i<listLength; i++){
 			var rnumber = localStorage.key(i)
 			console.log(rnumber);
-			templist+=localStorage.key(i) + '<button onclick="removeNumber(' + rnumber + ')">Remove</button>'+ "<br>";
+			templist+='<li onClick="removeNumber('  + rnumber + ')"><p>'+ localStorage.key(i) + "</p><p>click to remove</p></li>";
 			}
 		if(templist==="")
 				templist="No Number to be Blocked";
-			pb.innerHTML=templist+'<br><button onclick="mainPage()">Back</button>';
+			pb.innerHTML='<section data-type="list"><ul>' + templist+'</ul></section><br><button onclick="mainPage()">Back</button>';
 		};	
 function removeNumber(rnumber){
 		localStorage.removeItem(rnumber);
@@ -59,24 +62,30 @@ function removeNumber(rnumber){
 		var templist="";
 		for (var i=0; i<listLength; i++){
 			var rnumber = localStorage.key(i)
-			templist+=localStorage.key(i) + '<button onclick="removeNumber(' + rnumber + ')">Remove</button>'+ "<br>";
+			templist+='<li onClick="removeNumber('  + rnumber + ')"><p>'+ localStorage.key(i) + "</p><p>click to remove</p></li>";
 			}
 		if(templist==="")
 				templist="No Number to be Blocked";
-			pb.innerHTML=templist+'<br><button onclick="mainPage()">Back</button>';
+			pb.innerHTML='<section data-type="list"><ul>' + templist+'</ul></section><br><button onclick="mainPage()">Back</button>';
 		};
 			
 function mainPage(){
-			document.getElementById("pageBody").innerHTML = 'Mobile Number: <input type="text" id= "anumber"><button onclick="blockNumber()">Block</button><button onclick="unblockNumber()">Unblock</button><button onclick="printNumber()">Print</button>';
+			document.getElementById("pageBody").innerHTML = '<section role="region"><header><h1 style="color:black;">Call Blocker</h1></header><input type="text" id= "anumber"><br><button onclick="blockNumber()">Block</button><br><button onclick="unblockNumber()">Unblock</button><br><button onclick="printNumber()">Print</button><br>';
 			};
 </script>
 </head>
 <body>
 <div id="pageBody" style="" >
-Mobile Number: <input type="text" id= "anumber">
-<button onclick="blockNumber()">Block</button>
-<button onclick="unblockNumber()">Unblock</button>
-<button onclick="printNumber()">Print</button>
+
+<section class="skin-dark" role="region">
+  <header><h1 style="color:black;">
+   Call Blocker
+  </h1></header>
+<input type="text" id= "anumber" placeholder="Phone Number"><br>
+<button onclick="blockNumber()">Block</button><br>
+<button onclick="unblockNumber()">Unblock</button><br>
+<button onclick="printNumber()">Print</button><br>
+</section>
 </div>
 </body>
 </html>
