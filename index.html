@@ -5,13 +5,14 @@
   <link rel="stylesheet" type="text/css" href="css/buttons.css">
   <link rel="stylesheet" type="text/css" href="css/lists.css">
 <script>
+//localStorage.clear();
 var telephone = navigator.mozTelephony;
 telephony.onincoming = function onincoming(event){
 	var incomingCall = event.call;
 	if(localStorage(incomingCall.number)!==null)
 		incomingCall.hangUp();
 		};
-//localStorage.clear();
+
 function blockNumber(){
 		anumber = document.getElementById("anumber").value;
 		if (anumber !== "" && localStorage.getItem(anumber)==null){
@@ -52,7 +53,7 @@ function printNumber(){
 			}
 		if(templist==="")
 				templist="No Number to be Blocked";
-			pb.innerHTML='<section data-type="list"><ul>' + templist+'</ul></section><br><button onclick="mainPage()">Back</button>';
+			pb.innerHTML='<section class="skin-organic" role="region"><header><a href="#"><span class="icon icon-back" onClick="mainPage()">back</span></a><h1>Call Blocker</h1></header><br><section data-type="list"><ul>' + templist+'</ul></section><br><button onclick="mainPage()">Back</button>';
 		};	
 function removeNumber(rnumber){
 		localStorage.removeItem(rnumber);
@@ -66,25 +67,28 @@ function removeNumber(rnumber){
 			}
 		if(templist==="")
 				templist="No Number to be Blocked";
-			pb.innerHTML='<section data-type="list"><ul>' + templist+'</ul></section><br><button onclick="mainPage()">Back</button>';
+			pb.innerHTML='<section class="skin-organic" role="region"><header><a href="#"><span class="icon icon-back" onClick="mainPage()()">back</span></a><h1>Call Blocker</h1></header><br><section data-type="list"><ul>' + templist+'</ul></section><br><button onclick="mainPage()">Back</button>';
 		};
 			
 function mainPage(){
-			document.getElementById("pageBody").innerHTML = '<section role="region"><header><h1 style="color:black;">Call Blocker</h1></header><input type="text" id= "anumber"><br><button onclick="blockNumber()">Block</button><br><button onclick="unblockNumber()">Unblock</button><br><button onclick="printNumber()">Print</button><br>';
+			document.getElementById("pageBody").innerHTML = '<section class="skin-organic" role="region"><header><h1>Call Blocker</h1></header><br><input type="text" id= "anumber" placeholder="Phone Number"><br><button onclick="blockNumber()">Block</button><br><button onclick="unblockNumber()">Unblock</button><br><button onclick="printNumber()">Block List</button><br>';
 			};
+
 </script>
 </head>
 <body>
 <div id="pageBody" style="" >
 
-<section class="skin-dark" role="region">
-  <header><h1 style="color:black;">
-   Call Blocker
-  </h1></header>
+<section class="skin-organic" role="region">
+  <header>
+    
+    <h1>Call Blocker</h1>
+</header>
+<br>
 <input type="text" id= "anumber" placeholder="Phone Number"><br>
 <button onclick="blockNumber()">Block</button><br>
 <button onclick="unblockNumber()">Unblock</button><br>
-<button onclick="printNumber()">Print</button><br>
+<button onclick="printNumber()">Block List</button><br>
 </section>
 </div>
 </body>
