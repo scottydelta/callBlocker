@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 <head>
  <link rel="stylesheet" type="text/css" href="css/input_areas.css">
@@ -6,12 +7,21 @@
   <link rel="stylesheet" type="text/css" href="css/lists.css">
 <script>
 //localStorage.clear();
+
 var telephone = navigator.mozTelephony;
 telephony.onincoming = function onincoming(event){
 	var incomingCall = event.call;
-	if(localStorage(incomingCall.number)!==null)
-		incomingCall.hangUp();
-		};
+	var callNumber = incomingCall.number;
+	var tempLength = localStorage.length;
+	for(j=0;j<tempLength;j++){
+		var tempNumber = localStorage.key(i);
+		if(tempNumber.slice(tempNumber.length - 8)===callNumber.slice(callNumber.length - 8))
+			incomingCall.hangUp();
+		}
+//	if(localStorage(incomingCall.number)!==null)
+//		incomingCall.hangUp();
+	};
+	
 
 function blockNumber(){
 		anumber = document.getElementById("anumber").value;
@@ -24,9 +34,24 @@ function blockNumber(){
 		else
 			alert(anumber + " already in Block List");
         };
+		
+function printNumber(){
+		var listLength = localStorage.length;
+		var pb = document.getElementById("pageBody");
+		pb.innerHTML="";
+		var templist="";
+		for (var i=0; i<listLength; i++){
+			var rnumber = String(localStorage.key(i));
+			templist+='<li onClick=removeNumber("'  + rnumber + '")><p>'+ localStorage.key(i) + "</p><p>click to remove</p></li>";
+			}
+		if(templist==="")
+				templist="No Number to be Blocked";
+			pb.innerHTML='<section class="skin-organic" role="region"><header><a href="#"><span class="icon icon-back" onClick="mainPage()">back</span></a><h1>Call Blocker</h1></header><br><section data-type="list"><ul>' + templist+'</ul></section><br><button onClick="mainPage()">Back</button>';
+		};	
+		
 
 function unblockNumber(){
-		anumber = document.getElementById("anumber").value;
+		var anumber = document.getElementById("anumber").value;
 		if (localStorage.getItem(anumber)===null && anumber!==""){
 			var r=confirm(anumber + " not in Block List, To block it, Press OK");
 			if (r==true){
@@ -41,37 +66,25 @@ function unblockNumber(){
 			}
 		};
 
-function printNumber(){
-		var listLength = localStorage.length;
-		var pb = document.getElementById("pageBody");
-		pb.innerHTML="";
-		var templist="";
-		for (var i=0; i<listLength; i++){
-			var rnumber = localStorage.key(i)
-			console.log(rnumber);
-			templist+='<li onClick="removeNumber('  + rnumber + ')"><p>'+ localStorage.key(i) + "</p><p>click to remove</p></li>";
-			}
-		if(templist==="")
-				templist="No Number to be Blocked";
-			pb.innerHTML='<section class="skin-organic" role="region"><header><a href="#"><span class="icon icon-back" onClick="mainPage()">back</span></a><h1>Call Blocker</h1></header><br><section data-type="list"><ul>' + templist+'</ul></section><br><button onclick="mainPage()">Back</button>';
-		};	
+
 function removeNumber(rnumber){
-		localStorage.removeItem(rnumber);
+		var remNumber = rnumber;
+		localStorage.removeItem(remNumber);
 		var pb = document.getElementById("pageBody");
 		var listLength = localStorage.length;
 		pb.innerHTML="";
 		var templist="";
 		for (var i=0; i<listLength; i++){
 			var rnumber = localStorage.key(i)
-			templist+='<li onClick="removeNumber('  + rnumber + ')"><p>'+ localStorage.key(i) + "</p><p>click to remove</p></li>";
+			templist+='<li onClick=removeNumber("'  + rnumber + '")><p>'+ localStorage.key(i) + "</p><p>click to remove</p></li>";
 			}
 		if(templist==="")
 				templist="No Number to be Blocked";
-			pb.innerHTML='<section class="skin-organic" role="region"><header><a href="#"><span class="icon icon-back" onClick="mainPage()()">back</span></a><h1>Call Blocker</h1></header><br><section data-type="list"><ul>' + templist+'</ul></section><br><button onclick="mainPage()">Back</button>';
+			pb.innerHTML='<section class="skin-organic" role="region"><header><a href="#"><span class="icon icon-back" onClick="mainPage()()">back</span></a><h1>Call Blocker</h1></header><br><section data-type="list"><ul>' + templist+'</ul></section><br><button onClick="mainPage()">Back</button>';
 		};
 			
 function mainPage(){
-			document.getElementById("pageBody").innerHTML = '<section class="skin-organic" role="region"><header><h1>Call Blocker</h1></header><br><input type="text" id= "anumber" placeholder="Phone Number"><br><button onclick="blockNumber()">Block</button><br><button onclick="unblockNumber()">Unblock</button><br><button onclick="printNumber()">Block List</button><br>';
+			document.getElementById("pageBody").innerHTML = '<section class="skin-organic" role="region"><header><h1>Call Blocker</h1></header><br><input type="text" id= "anumber" placeholder="Phone Number"><br><button onClick="blockNumber()">Block</button><br><button onClick="unblockNumber()">Unblock</button><br><button onClick="printNumber()">Block List</button><br>';
 			};
 
 </script>
@@ -86,9 +99,9 @@ function mainPage(){
 </header>
 <br>
 <input type="text" id= "anumber" placeholder="Phone Number"><br>
-<button onclick="blockNumber()">Block</button><br>
-<button onclick="unblockNumber()">Unblock</button><br>
-<button onclick="printNumber()">Block List</button><br>
+<button onClick="blockNumber()">Block</button><br>
+<button onClick="unblockNumber()">Unblock</button><br>
+<button onClick="printNumber()">Block List</button><br>
 </section>
 </div>
 </body>
